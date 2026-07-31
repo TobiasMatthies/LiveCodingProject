@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestellapp</title>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        header {
+            height: 100px;
+            width: 100%;
+            background-color: chocolate;
+        }
+
+        main {
+            display: flex;
+            gap: 20px;
+            max-width: 1440px;
+            margin: auto;
+        }
+
+        .meals-section {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .meal-category {
+            padding: 10px;
+            width: 100%;
+            background-color: chocolate;
+            margin-bottom: 40px;
+        }
+
+        .dish {
+            background-color: rgb(194, 194, 194);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .basket {
+            padding: 10px;
+            width: 200px;
+            min-height: 300px;
+            color: white;
+            background-color: rgb(58, 58, 58);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .add-to-basket-button {
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #basket-meals {
+            flex: 1;
+        }
+    </style>
+
+    <script src="scripts/db.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/templates.js"></script>
+</head>
+
+<body onload="init()">
+    <header></header>
+    <main>
+        <section class="meals-section">
+            <h1>Gerichte</h1>
+
+            <div id="meals">
+
+            </div>
+        </section>
+        <div class="basket hide-mobile" id="basket">
+            <h3>Deine Gerichte</h3>
+            <div id="basket-meals"></div>
+            <button onclick="order()">Bestellen</button>
+        </div>
+    </main>
+</body>
+
+</html>
