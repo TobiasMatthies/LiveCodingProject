@@ -1,5 +1,8 @@
 function init() {
     renderMeals();
+    renderBasket();
+
+    //Alternative:
     //renderMealsAlt();
 }
 
@@ -14,28 +17,53 @@ function renderMeals() {
 }
 
 function addToBasket(category, title) {
-    meal = meals[category].find((dish) => dish.title == title)
-    basketDishes.push({ amount: 1, ...meal });
+    meal = meals[category].find((meal) => meal.title == title);
+    let basketItem = itemExistsInBasket(meal);
+
+    if (basketItem) {
+        basketItem.amount += 1;
+    }
+    else {
+        basketItems.push({ amount: 1, ...meal });
+    }
 
     renderBasket();
 }
 
-function renderBasket() {
-    document.getElementById('basket-meals').innerHTML = '';
+function itemExistsInBasket(meal) {
+    return basketItems.find(basketItem => basketItem.title == meal.title);
 
-    for (const basketDish of basketDishes) {
-        document.getElementById('basket-meals').innerHTML += `
-        <div>
-        <span>${basketDish.title}</span>
-        <span>${basketDish.price}</span>
-        <span>${basketDish.amount}</span>
-        </div>
-        `;
-    }
+    // Alternative:
+    //return itemExistsInBasketForEach(meal);
 }
 
 
-// ALTERNATIVE
+function renderBasket() {
+    document.getElementById('basket-meals').innerHTML = '';
+
+    for (const basketItem of basketItems) {
+        document.getElementById('basket-meals').innerHTML += getBasketDishHTML(basketItem);
+    }
+    updatePrice();
+}
+
+
+function updatePrice() {
+    const initialValue = 0;
+    const subtotal = basketItems.reduce(
+        (sum, currentItem) => sum + currentItem.price * currentItem.amount,
+        initialValue
+    );
+
+    document.getElementById('subtotal').innerHTML = subtotal;
+    document.getElementById('total').innerHTML = subtotal + 5;
+}
+
+
+
+// --- ALTERNATIVE SOLUTIONS ---
+
+
 function renderMealsAlt() {
     for (const category of categories) {
         document.getElementById('meals').innerHTML += getCategoryHTML(category);
@@ -45,4 +73,15 @@ function renderMealsAlt() {
             document.getElementById(category + '-container').innerHTML += getMealHTML(meal);
         }
     }
+}
+
+
+function itemExistsInBasketForEach(meal) {
+    itemExists = false;
+    basketItems.forEach(basketItem => {
+        if (basketItem.title == meal.title) {
+            itemExists = true
+        }
+    });
+    return itemExists;
 }

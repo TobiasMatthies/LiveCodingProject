@@ -18,3 +18,18 @@ function getMealHTML(category, meal) {
                 </div>
             `;
 }
+
+function getBasketDishHTML(basketItem) {
+    return `
+        <div class="basketRow">
+            <div>
+                <h4>${basketItem.title}</h4>
+                <span style="margin-right: 10px">Price: ${basketItem.price}$</span>
+                <span>Amount: ${basketItem.amount}</span>
+
+                <br/>
+                <span>Gesamt: ${basketItem.price * basketItem.amount}$</span>
+            </div>
+        </div>
+        `;
+}

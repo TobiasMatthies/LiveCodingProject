@@ -13,7 +13,7 @@ let meals = {
     ]
 };
 
-let basketDishes = [];
+let basketItems = [];
 
 
 

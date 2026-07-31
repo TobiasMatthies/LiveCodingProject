@@ -45,12 +45,19 @@
 
         .basket {
             padding: 10px;
-            width: 200px;
+            width: 300px;
             min-height: 300px;
+            font-size: 20px;
             color: white;
             background-color: rgb(58, 58, 58);
             display: flex;
             flex-direction: column;
+        }
+
+        .basket h4 {
+            font-size: 26px;
+            margin: 0;
+            margin-bottom: 4px;
         }
 
         .add-to-basket-button {
@@ -61,6 +68,17 @@
 
         #basket-meals {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .basketRow {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgb(101, 101, 101);
+            padding: 6px;
+            border-radius: 10px;
         }
     </style>
 
@@ -82,6 +100,11 @@
         <div class="basket hide-mobile" id="basket">
             <h3>Deine Gerichte</h3>
             <div id="basket-meals"></div>
+            <div>
+                <p>Zwischensumme: <span id="subtotal"></span>$</p>
+                <p>Lieferkosten: 5$</p>
+                <p>Gesamt: <span id="total"></span>$</p>
+            </div>
             <button onclick="order()">Bestellen</button>
         </div>
     </main>
