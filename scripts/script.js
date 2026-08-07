@@ -59,6 +59,15 @@ function updatePrice() {
     document.getElementById('total').innerHTML = subtotal + 5;
 }
 
+function order() {
+    basketItems = [];
+    renderBasket();
+
+    document.getElementById('basket-meals').innerHTML += '<h3>Vielen Dank für deine Bestellung</h3>';
+    setTimeout(() => {
+        document.getElementById('basket-meals').innerHTML = '';
+    }, 2000);
+}
 
 
 // --- ALTERNATIVE SOLUTIONS ---
