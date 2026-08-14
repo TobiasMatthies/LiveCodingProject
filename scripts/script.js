@@ -41,9 +41,9 @@ function itemExistsInBasket(meal) {
 function renderBasket() {
     document.getElementById('basket-meals').innerHTML = '';
 
-    for (const basketItem of basketItems) {
-        document.getElementById('basket-meals').innerHTML += getBasketDishHTML(basketItem);
-    }
+    basketItems.forEach((basketItem, index) => {
+        document.getElementById('basket-meals').innerHTML += getBasketMealHTML(basketItem, index);
+    });
     updatePrice();
 }
 
@@ -67,6 +67,25 @@ function order() {
     setTimeout(() => {
         document.getElementById('basket-meals').innerHTML = '';
     }, 2000);
+}
+
+function increaseAmount(basketIndex) {
+    let basketItem = basketItems[basketIndex];
+    basketItem.amount += 1;
+    renderBasket();
+}
+
+function decreaseAmount(basketIndex) {
+    let basketItem = basketItems[basketIndex];
+    basketItem.amount -= 1;
+
+    if (basketItem.amount < 1) return removeFromBasket(basketIndex);
+    renderBasket();
+}
+
+function removeFromBasket(basketIndex) {
+    basketItems.splice(basketIndex, 1);
+    renderBasket();
 }
 
 
