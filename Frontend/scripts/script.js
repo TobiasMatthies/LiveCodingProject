@@ -45,6 +45,10 @@ function itemExistsInBasket(meal) {
 function renderBasket() {
     document.getElementById('basket-meals').innerHTML = '';
 
+    if (basketItems.length === 0) {
+        document.getElementById('basket-meals').innerHTML = '<p class="basket-empty">Dein Warenkorb ist leer</p>';
+    }
+
     basketItems.forEach((basketItem, index) => {
         document.getElementById('basket-meals').innerHTML += getBasketMealHTML(basketItem, index);
     });
@@ -67,9 +71,9 @@ function order() {
     basketItems = [];
     renderBasket();
 
-    document.getElementById('basket-meals').innerHTML += '<h3>Vielen Dank für deine Bestellung</h3>';
+    document.getElementById('basket-meals').innerHTML = '<p class="order-confirmation">✅ Vielen Dank für deine Bestellung!</p>';
     setTimeout(() => {
-        document.getElementById('basket-meals').innerHTML = '';
+        renderBasket();
     }, 2000);
 }
 

@@ -1,6 +1,8 @@
 # Lieferando-Beispiel
 
-A fullstack livecoding project built to teach JavaScript fundamentals while demonstrating how a frontend talks to a backend over a REST API. It's a small food-ordering app ("Bestellapp"): a vanilla JS/HTML/CSS frontend backed by a Django REST Framework API.
+A fullstack livecoding project built to teach JavaScript fundamentals while demonstrating how a frontend integrates with a backend over a REST API. It's built as a small food-ordering app ("Bestellapp") — a vanilla JS/HTML/CSS frontend backed by a Django REST Framework API — grown incrementally session by session.
+
+Treat this README as a map to the project's goals and how to get it running, not a changelog of exactly what's implemented right now — that changes with every session.
 
 ## Project structure
 
@@ -9,29 +11,23 @@ A fullstack livecoding project built to teach JavaScript fundamentals while demo
 ├── Frontend/              # Vanilla HTML/CSS/JS ordering UI
 │   ├── index.html
 │   └── scripts/
-│       ├── db.js          # local mock meal data
-│       ├── script.js      # app logic: rendering, basket, ordering
-│       └── templates.js   # HTML template string helpers
 └── LieferandoBackend/     # Django REST API
     ├── manage.py
     ├── requirements.txt
     ├── LieferandoBackend/ # project settings & root urls
-    ├── main/              # Meal model + /api/meals/ endpoint
-    └── authentication/    # scaffolded app, not wired up yet
+    └── main/, authentication/, ...  # Django apps, added as the course progresses
 ```
 
 ## Frontend
 
-### Description
+### Goal
 
-A plain HTML/CSS/JavaScript single-page app — no framework, no build step, no `package.json`, on purpose, to keep the focus on core JS (DOM manipulation, template strings, array methods, `async`/`await`, `fetch`).
-
-The meal list and basket are currently rendered from local mock data in `db.js`. On load, the app also calls the backend's `GET /api/meals/` endpoint and logs the result to the console, as a live demo of `fetch` talking to a real API — wiring that response into the rendered meal list is left as a teaching exercise.
+A plain HTML/CSS/JavaScript single-page app — no framework, no build step, no `package.json`, on purpose, to keep the focus on core JS (DOM manipulation, template strings, array methods, `async`/`await`, `fetch`). It renders meals, manages a basket, and demonstrates calling the backend API.
 
 ### Prerequisites
 
 - Any modern browser
-- Optionally, the [backend](#backend) running locally if you want to see the `/api/meals/` fetch succeed in the console (CORS is fully open for local dev)
+- Optionally, the [backend](#backend) running locally to exercise the API calls
 
 ### Quickstart
 
@@ -46,19 +42,13 @@ python3 -m http.server 5500
 
 ### Usage
 
-- Meals are grouped by category (`mainDishes`, `desserts`, `drinks`)
-- Click **+** on a meal to add it to the basket
-- The basket panel shows quantity controls (**+ / − / ✕**) and a running subtotal + flat 5$ delivery fee
-- **Bestellen** ("Order") clears the basket — this is a frontend-only demo and does not send the order to the backend
+Browse the meals, add them to your basket, and place a mock order. The exact flow and feature set evolve as the course progresses — read `scripts/script.js` for the current behavior.
 
 ## Backend
 
-### Description
+### Goal
 
-A Django project exposing a small REST API via Django REST Framework:
-
-- **`main`** — the `Meal` model (`title`, `price`) and a read-only `GET /api/meals/` list endpoint
-- **`authentication`** — scaffolded (model, serializer, view and url files exist but are empty and not included in the root urlconf yet); a starting point for a future auth lesson
+A Django project exposing a REST API via Django REST Framework that the frontend consumes. It starts small (serving meal data) and grows new apps/endpoints (e.g. authentication) as later sessions build on it.
 
 ### Prerequisites
 
@@ -76,21 +66,15 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-The API is now available at `http://127.0.0.1:8000/api/meals/`.
+The API is now available at `http://127.0.0.1:8000/`. Check the `urls.py` files under `LieferandoBackend/` and each app for the current set of endpoints — new ones get added throughout the course.
 
-To see meals in the API (and therefore in the frontend's console log), create an admin user and add some via the Django admin:
+To manage data via the Django admin, create an admin user first:
 
 ```bash
 python manage.py createsuperuser
 ```
 
-Then visit `http://127.0.0.1:8000/admin/` and add `Meal` entries.
-
-### API
-
-| Method | Endpoint       | Description                          |
-| ------ | -------------- | ------------------------------------- |
-| GET    | `/api/meals/`  | List all meals (`id`, `title`, `price`) |
+Then visit `http://127.0.0.1:8000/admin/`.
 
 ### Running tests
 
@@ -105,11 +89,9 @@ This repo commits `.vscode/settings.json`, which points the Python interpreter, 
 1. Run **Python: Select Interpreter** in VS Code and choose `LieferandoBackend/env`
 2. Reload the window if imports still show as unresolved
 
-### Known limitations
+### Note
 
-- `SECRET_KEY` and `DEBUG = True` in `settings.py` are Django's insecure dev-only defaults — do not deploy as-is
-- `authentication` has no live endpoints yet
-- The frontend's order button doesn't persist orders to the backend
+This is a learning project, not a production one — e.g. the dev `SECRET_KEY`/`DEBUG=True` in `settings.py` are Django's insecure defaults and features are intentionally left incomplete between sessions.
 
 ## Tech stack
 

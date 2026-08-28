@@ -6,87 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bestellapp</title>
 
-    <style>
-        body {
-            margin: 0;
-        }
-
-        header {
-            height: 100px;
-            width: 100%;
-            background-color: chocolate;
-        }
-
-        main {
-            display: flex;
-            gap: 20px;
-            max-width: 1440px;
-            margin: auto;
-        }
-
-        .meals-section {
-            flex: 1;
-            padding: 10px;
-        }
-
-        .meal-category {
-            padding: 10px;
-            width: 100%;
-            background-color: chocolate;
-            margin-bottom: 40px;
-        }
-
-        .meal {
-            background-color: rgb(194, 194, 194);
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .basket {
-            padding: 10px;
-            width: 300px;
-            min-height: 300px;
-            font-size: 20px;
-            color: white;
-            background-color: rgb(58, 58, 58);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .basket h4 {
-            font-size: 26px;
-            margin: 0;
-            margin-bottom: 4px;
-        }
-
-        .add-to-basket-button {
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        #basket-meals {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .basketRow {
-            display: flex;
-            justify-content: space-between;
-            background-color: rgb(122, 122, 122);
-            padding: 6px;
-            border-radius: 10px;
-        }
-
-        .basket-meal-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/style.css">
 
     <script src="scripts/db.js"></script>
     <script src="scripts/script.js"></script>
@@ -94,7 +14,10 @@
 </head>
 
 <body onload="init()">
-    <header></header>
+    <header>
+        <span class="brand">🍔 Bestellapp</span>
+        <span class="tagline">Frisch bestellt, schnell geliefert</span>
+    </header>
     <main>
         <section class="meals-section">
             <h1>Gerichte</h1>
@@ -103,15 +26,15 @@
 
             </div>
         </section>
-        <div class="basket hide-mobile" id="basket">
+        <div class="basket" id="basket">
             <h3>Deine Gerichte</h3>
             <div id="basket-meals"></div>
-            <div>
-                <p>Zwischensumme: <span id="subtotal"></span>$</p>
-                <p>Lieferkosten: 5$</p>
-                <p>Gesamt: <span id="total"></span>$</p>
+            <div class="basket-summary">
+                <p><span>Zwischensumme</span><span><span id="subtotal">0</span>$</span></p>
+                <p><span>Lieferkosten</span><span>5$</span></p>
+                <p class="total-row"><span>Gesamt</span><span><span id="total">0</span>$</span></p>
             </div>
-            <button onclick="order()">Bestellen</button>
+            <button class="order-button" onclick="order()">Bestellen</button>
         </div>
     </main>
 </body>
