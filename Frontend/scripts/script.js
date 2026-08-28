@@ -1,7 +1,11 @@
-function init() {
+async function init() {
     renderMeals();
     renderBasket();
 
+
+    let meals = await fetch('http://127.0.0.1:8000/api/meals/')
+    let mealsJson = await meals.json()
+    console.log(mealsJson);
     //Alternative:
     //renderMealsAlt();
 }

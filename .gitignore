@@ -1,0 +1,21 @@
+# --- Python / Django (LieferandoBackend) ---
+__pycache__/
+*.py[cod]
+*$py.class
+env/
+venv/
+.venv/
+*.sqlite3
+staticfiles/
+media/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# --- Editor / IDE ---
+.idea/
+*.swp
+
+# --- OS ---
+.DS_Store
+Thumbs.db
