@@ -12,7 +12,7 @@ function getCategoryHTML(category) {
         `;
 }
 
-function getMealHTML(category, meal) {
+function getMealHTML(meal) {
     return `
                 <div class="meal" id="${meal.title}-container">
                     <div class="meal-info">
@@ -20,7 +20,7 @@ function getMealHTML(category, meal) {
                         <span class="meal-price">${meal.price}$</span>
                     </div>
 
-                    <button class="add-to-basket-button" onclick="addToBasket('${category}', '${meal.title}')">+</button>
+                    <button class="add-to-basket-button" onclick="addToBasket('${meal.id}')">+</button>
                 </div>
             `;
 }

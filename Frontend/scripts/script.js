@@ -1,27 +1,27 @@
 async function init() {
+    let response = await fetch('http://127.0.0.1:8000/api/meals/')
+    let mealsJson = await response.json()
+    meals = mealsJson;
+
     renderMeals();
     renderBasket();
-
-
-    let meals = await fetch('http://127.0.0.1:8000/api/meals/')
-    let mealsJson = await meals.json()
-    console.log(mealsJson);
     //Alternative:
     //renderMealsAlt();
 }
 
 function renderMeals() {
-    for (const category in meals) {
+    for (const category of categories) {
         document.getElementById('meals').innerHTML += getCategoryHTML(category);
 
-        for (const meal of meals[category]) {
-            document.getElementById(category + '-container').innerHTML += getMealHTML(category, meal);
+        let mealsForCategory = meals.filter((meal) => meal.category == category);
+        for (const meal of mealsForCategory) {
+            document.getElementById(category + '-container').innerHTML += getMealHTML(meal);
         }
     }
 }
 
-function addToBasket(category, title) {
-    meal = meals[category].find((meal) => meal.title == title);
+function addToBasket(meal_id) {
+    meal = meals.find((meal) => meal.id == meal_id);
     let basketItem = itemExistsInBasket(meal);
 
     if (basketItem) {
@@ -35,7 +35,7 @@ function addToBasket(category, title) {
 }
 
 function itemExistsInBasket(meal) {
-    return basketItems.find(basketItem => basketItem.title == meal.title);
+    return basketItems.find(basketItem => basketItem.id == meal.id);
 
     // Alternative:
     //return itemExistsInBasketForEach(meal);
@@ -99,14 +99,13 @@ function removeFromBasket(basketIndex) {
 
 // --- ALTERNATIVE SOLUTIONS ---
 
-
+/*
 function renderMealsAlt() {
-    for (const category of categories) {
+    for (const category in meals) {
         document.getElementById('meals').innerHTML += getCategoryHTML(category);
 
-        let mealsForCategory = meals2.filter((meal) => meal.category == category);
-        for (const meal of mealsForCategory) {
-            document.getElementById(category + '-container').innerHTML += getMealHTML(meal);
+        for (const meal of meals[category]) {
+            document.getElementById(category + '-container').innerHTML += getMealHTML(category, meal);
         }
     }
 }
@@ -121,3 +120,4 @@ function itemExistsInBasketForEach(meal) {
     });
     return itemExists;
 }
+*/

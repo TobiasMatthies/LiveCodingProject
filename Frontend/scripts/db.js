@@ -1,3 +1,11 @@
+let meals = []
+let categories = ['mainDishes', 'drinks', 'desserts'];
+let basketItems = [];
+
+
+// Local data alternatives
+
+/*
 let meals = {
     mainDishes: [
         { title: 'Pommes', price: 3, },
@@ -28,3 +36,4 @@ let meals2 = [
     { title: 'Fanta', price: 2, category: 'drinks' },
     { title: 'Eis', price: 3, category: 'desserts' },
 ];
+*/
