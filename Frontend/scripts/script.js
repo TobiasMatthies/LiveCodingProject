@@ -3,6 +3,7 @@ async function init() {
     let mealsJson = await response.json()
     meals = mealsJson;
 
+    loadBasket();
     renderMeals();
     renderBasket();
     //Alternative:
@@ -31,6 +32,7 @@ function addToBasket(meal_id) {
         basketItems.push({ amount: 1, ...meal });
     }
 
+    saveBasket();
     renderBasket();
 }
 
@@ -69,6 +71,7 @@ function updatePrice() {
 
 function order() {
     basketItems = [];
+    saveBasket();
     renderBasket();
 
     document.getElementById('basket-meals').innerHTML = '<p class="order-confirmation">✅ Vielen Dank für deine Bestellung!</p>';
@@ -94,6 +97,14 @@ function decreaseAmount(basketIndex) {
 function removeFromBasket(basketIndex) {
     basketItems.splice(basketIndex, 1);
     renderBasket();
+}
+
+function loadBasket() {
+    basketItems = JSON.parse(localStorage.getItem("basket")) || [];
+}
+
+function saveBasket() {
+    localStorage.setItem("basket", JSON.stringify(basketItems));
 }
 
 
